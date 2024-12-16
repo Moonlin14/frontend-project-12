@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Container, Form, Button, Card, Row, FloatingLabel, Col, Image } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ import { useAuth } from '../hooks/hooks.js';
 import getRoutes from '../routes.js';
 import imagePath from '../assets/avatar_1.jpg';
 
-export const LoginPage = () => {
+export default () => {
   const navigate = useNavigate();
   const location = useLocation();
   const inputRef = useRef();
