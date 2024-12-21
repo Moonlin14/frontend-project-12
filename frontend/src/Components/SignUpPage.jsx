@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Container, Col, Row, Card, Form, Button, FormControl, FormGroup, FormLabel, Image } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
-// import i18
+import { useTranslation } from 'react-i18next';
 import ImagePath from '../assets/avatar_2.jpg';
 import getRoutes from '../routes.js';
 import { useAuth } from '../hooks/hooks.js'
@@ -16,7 +16,7 @@ export default () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { logIn } = useAuth();
-  // i18
+  const { t } = useTranslation();
 
   useEffect(() => {
     usernameRef.current.focus();
@@ -25,21 +25,21 @@ export default () => {
   const registrationValidation = yup.object().shape({
     username: yup
       .string()
-      .min(3)
-      .max(20)
+      .min(3, t('signUpPage.usernameLenght'))
+      .max(20, t('signUpPage.usernameLenght'))
       .trim()
-      .typeError('Обязательное поле')
-      .required('Обязательное поле'),
+      .typeError(t('required'))
+      .required(t('required')),
     password: yup
       .string()
       .trim()
       .min(6)
-      .typeError('Обязательное поле')
-      .required('Обязательное поле'),
+      .typeError(t('required'))
+      .required(t('required')),
     confirmPassword: yup
       .string()
       .test('confirmPassword',
-        //i18
+        t('signUpPage.confirmPassword'),
         (password, context) => password === context.parent.password),
   });
 
@@ -82,20 +82,20 @@ export default () => {
                 <Image src={ImagePath} className='rounded-circle' alt='Registration Avatar'/>
               </div>
               <Form className='w-50'>
-                <h1 className='text-center mb-4'>Регистрация</h1>
+                <h1 className='text-center mb-4'>{t('signUp')}</h1>
                 <FormGroup className='form-floating mb-3'>
                   <FormControl 
                   id='username'
                   name='username'
                   ref={usernameRef}
-                  placeholder='Имя пользователя'
+                  placeholder={t('signUpPage.usernameLenght')}
                   value={formik.values.username}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   disabled={submited}
                   isInvalid={ (formik.errors.username && formik.touched.username) || failedRegistration }
                   />
-                  <FormLabel htmlFor='username'>Имя пользователя</FormLabel>
+                  <FormLabel htmlFor='username'>{t('signUpPage.username')}</FormLabel>
                   <Form.Control.Feedback type='invalid' className='invalid-feedback'>
                     {formik.errors.username || null}
                   </Form.Control.Feedback>
@@ -105,14 +105,14 @@ export default () => {
                   id='password'
                   name='password'
                   type='password'
-                  placeholder='Пароль'
+                  placeholder={t('signUpPage.minPasswordLenght')}
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   disabled={submited}
                   isInvalid={ (formik.errors.password && formik.touched.password ) || failedRegistration }
                   />
-                  <FormLabel htmlFor='password'>Пароль</FormLabel>
+                  <FormLabel htmlFor='password'>{t('signUpPage.password')}</FormLabel>
                   <Form.Control.Feedback type='invalid' className='invalid-feedback'>
                     {formik.errors.password || null}
                   </Form.Control.Feedback>
@@ -122,14 +122,14 @@ export default () => {
                   type='password'
                   id='confirmPassword'
                   name='confirmPassword'
-                  placeholder='Подтвердите пароль'
+                  placeholder={t('signUpPage.minPasswordLenght')}
                   value={formik.values.confirmPassword}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   disabled={submited}
                   isInvalid={ (formik.errors.confirmPassword && formik.touched.confirmPassword) || failedRegistration }
                   />
-                  <FormLabel htmlFor='confirmPassword'>Подтвердите пароль</FormLabel>
+                  <FormLabel htmlFor='confirmPassword'>{t('signUpPage.repeatPassword')}</FormLabel>
                   <Form.Control.Feedback type='invalid' className='invalid-feedback'>
                     {formik.errors.confirmPassword || null}
                   </Form.Control.Feedback>
@@ -141,7 +141,7 @@ export default () => {
                 variant='outline-primary'
                 onClick={formik.handleSubmit}
                 >
-                  Регистрация
+                  {t('signUpPage.signup')}
                 </Button>
               </Form>
             </Card.Body>
@@ -149,5 +149,5 @@ export default () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};

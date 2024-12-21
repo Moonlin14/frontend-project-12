@@ -4,7 +4,7 @@ import { Container, Form, Button, Card, Row, FloatingLabel, Col, Image } from 'r
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
-//i18
+import { useTranslation } from 'react-i18next'
 
 import { useAuth } from '../hooks/hooks.js';
 import getRoutes from '../routes.js';
@@ -15,7 +15,7 @@ export default () => {
   const location = useLocation();
   const inputRef = useRef();
   const auth = useAuth();
-  //i18
+  const { t } = useTranslation();
   const [authFailed, setAuthFaild] = useState(false);
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export default () => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: Yup.object({
-      username: Yup.string().typeError('required').required('required'),
-      password: Yup.string().typeError('required').required('required')
+      username: Yup.string().typeError(t('required')).required(t('required')),
+      password: Yup.string().typeError(t('required')).required(t('required'))
     }),
 
     onSubmit: async (values) => {
@@ -34,7 +34,7 @@ export default () => {
       try {
         const res = await axios.post(getRoutes.loginPath(), values)
         localStorage.setItem('userId', JSON.stringify(res.data));
-        // auth.logIn(res.data)
+        auth.logIn(res.data)
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {
@@ -59,10 +59,10 @@ export default () => {
               <Image src={imagePath} className='roundedCircle' alt="Войти" />
             </div>
             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-                <h1 className="text-center mb-4">Войти</h1>
+                <h1 className="text-center mb-4">{t('enter')}</h1>
                 <fieldset>
                   <Form.Group className="form-floating mb-3">
-                    <FloatingLabel id="username" label="Ваш ник">
+                    <FloatingLabel id="username" label={t('username')}>
                       <Form.Control type="text"
                       onChange={formik.handleChange}
                       value={formik.values.username}
@@ -79,7 +79,7 @@ export default () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
-                    <FloatingLabel id="password" label="Пароль">
+                    <FloatingLabel id="password" label={t('password')}>
                       <Form.Control 
                         type="password" 
                         name="password" 
@@ -94,17 +94,17 @@ export default () => {
                         required
                       />
                     </FloatingLabel>
-                    <Form.Control.Feedback type="invalid" className="invalid-feedback">Неизвестный пользователь</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid" className="invalid-feedback">{t('noValidUsername')}</Form.Control.Feedback>
                   </Form.Group>
-                  <Button type="submit" disabled={formik.isSubmitting} variant='outline-primary' className="w-100 mb-3">Войти</Button>
+                  <Button type="submit" disabled={formik.isSubmitting} variant='outline-primary' className="w-100 mb-3">{t('enter')}</Button>
                 </fieldset>
               </Form>
           </Card.Body>
           <Card.Footer>
             <div className="text-center">
-              <span>Нет аккаунта?</span>
+              <span>{t('notAccount')}</span>
               {' '}
-              <NavLink to={"/signup"}>Регистрация</NavLink>
+              <NavLink to={getRoutes.signupPagePath()}>{t('signUp')}</NavLink>
             </div>
           </Card.Footer>
         </Card>
