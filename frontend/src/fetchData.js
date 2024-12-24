@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import getRoutes from './routes.js';
 
 export default createAsyncThunk(
-  'channelsData',
+  'channelsInfo/setInitialState',
   async (authHeader, { rejectWithValue }) => {
     try {
       const res = await axios.get(getRoutes.dataPath(), { headers: authHeader });

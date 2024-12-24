@@ -1,5 +1,5 @@
 export default {
-  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+  accessToken: '1da3037a54d44f03a66acfeab2bf3f0c',
   payload: {
     environment: 'production',
   },
