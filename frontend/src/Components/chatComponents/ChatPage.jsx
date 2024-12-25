@@ -23,7 +23,7 @@ export default () => {
         console.error(e);
       });
     };
-    fetchData();
+    fetchUserData();
   }, [dispatch, auth, t]);
 
   if (channelsInfo.loading) {

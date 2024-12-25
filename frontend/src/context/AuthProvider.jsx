@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const getAuthHeader = useCallback(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = JSON.parse(localStorage.getItem('userId'))
     
     if (userId && userId.token) {
       return { Authorization: `Bearer ${userId.token}` };
@@ -42,8 +42,7 @@ return (
   <AuthContext.Provider value={providedData}>
     {children}
   </AuthContext.Provider>
-);
-
+  );
 };
 
 export default AuthProvider;

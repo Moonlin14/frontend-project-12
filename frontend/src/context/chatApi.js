@@ -41,7 +41,7 @@ const chatApi = {
     });
   }),
   removeChannel: (id) => new Promise((resolve, reject) => {
-    socket.emit('removeChannel', {id}, (response) => {
+    socket.emit('removeChannel', { id }, (response) => {
       if (respones.error) {
         console.error(response.error);
         reject();
@@ -50,8 +50,8 @@ const chatApi = {
       }
     });
   }),
-  renameChannel: ({ name, id}) => new Promise((resolve, reject) => {
-    socket.emit('renameChannel', {name, id}, (respones) => {
+  renameChannel: ({ name, id }) => new Promise((resolve, reject) => {
+    socket.emit('renameChannel', { name, id }, (respones) => {
       if (respones.error) {
         console.error(respones.error);
         reject();

@@ -8,8 +8,7 @@ import Header from './Header.jsx';
 import SignUpPage from './SignUpPage.jsx';
 import CheckRoute from './CheckRoute.jsx';
 
-
-export default () => (
+const App = () => (
   <div className='h-100'>
     <div className="d-flex flex-column h-100">
       <BrowserRouter>
@@ -35,5 +34,6 @@ export default () => (
       theme='light'
     />
   </div>
-
 );
+
+export default App;

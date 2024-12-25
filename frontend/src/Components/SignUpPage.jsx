@@ -9,7 +9,7 @@ import ImagePath from '../assets/avatar_2.jpg';
 import getRoutes from '../routes.js';
 import { useAuth } from '../hooks/hooks.js'
 
-export default () => {
+const SignupPage = () => {
   const [failedRegistration, setFailedRegistration] = useState(false);
   const [submited, setSubmited] = useState(false);
   const usernameRef = useRef(null);
@@ -50,11 +50,12 @@ export default () => {
       confirmPassword: '',
     },
     validationSchema: registrationValidation,
-    onSubmit: async ({ username, password }) => {
+    onSubmit: async (values) => {
       setSubmited(true);
       setFailedRegistration(false);
       try {
-        const { data } = axios.post(getRoutes.signupPath(), { username, password });
+        const { username, password } = values;
+        const { data } = await axios.post(getRoutes.signupPath(), { username, password });
         localStorage.setItem('userId', JSON.stringify(data));
         logIn(data);
         const { from } = location.state || { from: { pathname: getRoutes.chatPagePath() } };
@@ -112,7 +113,7 @@ export default () => {
                   disabled={submited}
                   isInvalid={ (formik.errors.password && formik.touched.password ) || failedRegistration }
                   />
-                  <FormLabel htmlFor='password'>{t('signUpPage.password')}</FormLabel>
+                  <FormLabel htmlFor='password'>{t('password')}</FormLabel>
                   <Form.Control.Feedback type='invalid' className='invalid-feedback'>
                     {formik.errors.password || null}
                   </Form.Control.Feedback>
@@ -141,7 +142,7 @@ export default () => {
                 variant='outline-primary'
                 onClick={formik.handleSubmit}
                 >
-                  {t('signUpPage.signup')}
+                  {t('signUpPage.signUp')}
                 </Button>
               </Form>
             </Card.Body>
@@ -151,3 +152,5 @@ export default () => {
     </Container>
   );
 };
+
+export default SignupPage;

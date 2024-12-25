@@ -5,12 +5,12 @@ import MessagesHeader from './MessageHeader.jsx';
 import Message from './Message.jsx';
 
 export default () => {
-  const messagesView = useRef(null);
   const channels = useSelector((state) => state.channelsInfo.channels);
   const messages = useSelector((state) => state.messagesInfo.messages);
-  const currentChannelid = useSelector((state) => state.channelsInfo.currentChannelid);
+  const currentChannelid = useSelector((state) => state.channelsInfo.currentChannelId);
   const [activeChannel] = channels.filter(({id}) => id === currentChannelid);
   const activeChannelMessages = messages.filter((message) => message.channelId === currentChannelid);
+  const messagesView = useRef(null);
 
   useEffect(() => {
     messagesView.current?.lastElementChild?.scrollIntoView({ behavior: 'smooth' });

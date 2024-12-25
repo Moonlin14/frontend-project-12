@@ -1,7 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import channelsInfo, { actions as channelsInfoActions } from './channelsInfo.js';
 import messagesInfo, { actions as messagesInfoActions } from './messagesInfo.js';
 import modalInfo, { actions as modalInfoActions } from './modalInfo.js';
+
+const reducer = combineReducers({
+  channelsInfo,
+  messagesInfo,
+  modalInfo,
+});
 
 export const actions = {
   ...channelsInfoActions,
@@ -10,9 +16,5 @@ export const actions = {
 };
 
 export default configureStore({
-  reducer: {
-    channels: channelsInfo,
-    messages: messagesInfo,
-    modal: modalInfo,
-  },
+  reducer,
 });

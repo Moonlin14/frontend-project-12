@@ -10,7 +10,7 @@ import { useAuth } from '../hooks/hooks.js';
 import getRoutes from '../routes.js';
 import imagePath from '../assets/avatar_1.jpg';
 
-export default () => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const inputRef = useRef();
@@ -32,9 +32,9 @@ export default () => {
     onSubmit: async (values) => {
       setAuthFaild(false);
       try {
-        const res = await axios.post(getRoutes.loginPath(), values)
-        localStorage.setItem('userId', JSON.stringify(res.data));
-        auth.logIn(res.data)
+        const { data } = await axios.post(getRoutes.loginPath(), values)
+        localStorage.setItem('userId', JSON.stringify(data));
+        auth.logIn(data)
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {
@@ -113,3 +113,5 @@ export default () => {
   </Container>
 );
 };
+
+export default LoginPage;
