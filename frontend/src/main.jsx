@@ -1,9 +1,9 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { createRoot } from 'react-dom/client'
-import init from './init.jsx';
+import ReactDOM from 'react-dom/client';
+import init from './init';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const app = async () => {
-  createRoot(document.getElementById('root')).render(await init());
-};
-
-app();
+const root = ReactDOM.createRoot(document.getElementById('root'));
+const vdom = await init();
+root.render(
+  vdom,
+);
