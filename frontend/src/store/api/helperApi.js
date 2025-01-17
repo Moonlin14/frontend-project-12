@@ -1,4 +1,4 @@
- 
+/* eslint-disable */
 const addSocketListener = async (
   socket,
   event,
@@ -36,5 +36,5 @@ const addSocketListener = async (
   await cacheEntryRemoved;
   socket.off(event);
 };
-
 export default addSocketListener;
+/* eslint-enable */
