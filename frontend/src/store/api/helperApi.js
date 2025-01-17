@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+ 
 const addSocketListener = async (
   socket,
   event,

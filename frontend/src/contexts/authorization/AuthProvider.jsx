@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
+ 
 import { useState, useEffect, useMemo } from 'react';
 import AuthContext from './AuthContext';
 
