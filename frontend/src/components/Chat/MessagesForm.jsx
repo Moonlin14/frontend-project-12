@@ -43,7 +43,7 @@ const MessagesForm = ({
           wfd-id="id0"
           ref={inputRef}
         />
-        <button type="submit" disabled={formik.isSubmitting || !formik.values.body} className="btn btn-group-vertical">
+        <button type="submit" disabled={isLoading || !formik.values.body} className="btn btn-group-vertical">
           <MessageInputButton />
           <span className="visually-hidden">{t('messageInput.submitButton')}</span>
         </button>

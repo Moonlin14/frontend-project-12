@@ -4,14 +4,14 @@ import Loading from '../PagesComponents/Loading';
 import { useGetChannelsQuery } from '../../store/api/chatApi';
 
 const Container = () => {
-  const { data: channels } = useGetChannelsQuery()
-  
-  if(channels === undefined ) {
+  const { data: channels } = useGetChannelsQuery();
+
+  if (channels === undefined) {
     return (
       <div className="h-100 d-flex align-items-center justify-content-center">
         <Loading />
       </div>
-    )
+    );
   }
 
   return (
@@ -22,7 +22,6 @@ const Container = () => {
       </div>
     </div>
   );
-  
-} 
+};
 
 export default Container;
