@@ -20,7 +20,7 @@ const init = async () => {
   };
   await i18n.use(initReactI18next).init(options);
   const rollbarConfig = {
-    accessToken: '1da3037a54d44f03a66acfeab2bf3f0c',
+    accessToken: import.meta.env.REACT_APP_ROLLBAR_TOKEN,
     environment: 'production',
   };
   return (
