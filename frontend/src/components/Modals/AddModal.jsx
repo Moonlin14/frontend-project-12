@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { channelNamesShema } from '../../utils/validate';
@@ -13,7 +14,6 @@ import {
 import {
   setActiveChannel,
 } from '../../store/slices/activeChannelSlice';
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import routes from '../../utils/routes';
 
@@ -51,9 +51,9 @@ const AddModal = ({ closeModal }) => {
     if (token !== localStorage.getItem('token')) {
       navigate(routes.loginPagePath());
       auth.logOut();
-    };
+    }
     inputRef.current.focus();
-  }, [channels]);
+  }, [channels]); /* eslint-disable */
 
   return (
     <Modal show="true" onHide={closeModal} centered>

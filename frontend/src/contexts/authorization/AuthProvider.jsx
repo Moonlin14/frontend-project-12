@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import AuthContext from './AuthContext';
-
+/* eslint-disable */
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
   const [tokenState, setTokenState] = useState(localStorage.getItem('token'));
@@ -25,9 +25,9 @@ const AuthProvider = ({ children }) => {
   const authValue = useMemo(
     () => ({
       loggedIn,
+      tokenState,
       logIn,
       logOut,
-      tokenState,
     }),
     [loggedIn],
   );

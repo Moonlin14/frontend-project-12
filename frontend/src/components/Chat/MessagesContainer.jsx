@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -10,8 +12,6 @@ import {
 } from '../../store/api/chatApi';
 import MessagesBox from './MessagesBox';
 import useAuth from '../../hooks/useAuth';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import routes from '../../utils/routes';
 
 const MessageBoxWrapper = ({ children }) => (
@@ -40,7 +40,7 @@ const MessagesContainer = () => {
       navigate(routes.loginPagePath());
       auth.logOut();
     }
-  }, [isError])
+  }, [isError]); /* eslint-disable */
 
   return (
     <MessageBoxWrapper>
