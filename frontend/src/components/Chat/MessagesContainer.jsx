@@ -9,6 +9,10 @@ import {
   useAddMessageMutation,
 } from '../../store/api/chatApi';
 import MessagesBox from './MessagesBox';
+import useAuth from '../../hooks/useAuth';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../utils/routes';
 
 const MessageBoxWrapper = ({ children }) => (
   <div className="col p-0 h-100">
@@ -22,11 +26,21 @@ const MessagesContainer = () => {
   const { t } = useTranslation();
   const activeChannel = useSelector(activeChannelSelector);
   const { activeChannelId, activeChannelName } = useLiveData(activeChannel);
-  const { data: messages, isLoading } = useGetMessagesQuery();
+  const { data: messages, isLoading, isError } = useGetMessagesQuery();
   const channelMessages = messages?.filter((message) => message.channelId === activeChannelId);
   const count = channelMessages?.length || 0;
   const [addMessage] = useAddMessageMutation();
   const username = localStorage.getItem('username');
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const token = auth.tokenState;
+
+  useEffect(() => {
+    if (token !== localStorage.getItem('token')) {
+      navigate(routes.loginPagePath());
+      auth.logOut();
+    }
+  }, [isError])
 
   return (
     <MessageBoxWrapper>

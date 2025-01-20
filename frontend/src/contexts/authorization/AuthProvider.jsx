@@ -3,15 +3,18 @@ import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [tokenState, setTokenState] = useState(localStorage.getItem('token'));
   const logIn = (token, username) => {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     setLoggedIn(true);
+    setTokenState(token);
   };
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     setLoggedIn(false);
+    setTokenState('');
   };
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,6 +27,7 @@ const AuthProvider = ({ children }) => {
       loggedIn,
       logIn,
       logOut,
+      tokenState,
     }),
     [loggedIn],
   );

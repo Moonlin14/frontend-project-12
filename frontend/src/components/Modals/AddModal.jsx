@@ -13,6 +13,9 @@ import {
 import {
   setActiveChannel,
 } from '../../store/slices/activeChannelSlice';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import routes from '../../utils/routes';
 
 const AddModal = ({ closeModal }) => {
   const [addChannel] = useAddChannelMutation();
@@ -20,6 +23,9 @@ const AddModal = ({ closeModal }) => {
   const { data: channels } = useGetChannelsQuery();
   const channelNames = channels?.map((channel) => channel.name);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = useAuth();
+  const token = auth.tokenState;
 
   const formik = useFormik({
     initialValues: {
@@ -40,9 +46,15 @@ const AddModal = ({ closeModal }) => {
   });
 
   const inputRef = useRef(null);
+
   useEffect(() => {
+    if (token !== localStorage.getItem('token')) {
+      navigate(routes.loginPagePath());
+      auth.logOut();
+    };
     inputRef.current.focus();
-  }, []);
+  }, [channels]);
+
   return (
     <Modal show="true" onHide={closeModal} centered>
       <Modal.Header closeButton>
